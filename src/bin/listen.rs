@@ -24,34 +24,6 @@ use std::{
     }
 };
 
-//struct Sender {
-//    tx: mpsc::Sender,
-//    threads: Vec<JoinHandle>,
-//    count: usize
-//}
-//
-//impl Sender {
-//    fn new(count: usize) -> Sender {
-//        let threads = Vec::new();
-//        let (rx, tx) = mpsc::channel();
-//        let rx = Arc::new(rx);
-//        for _ in 0..count {
-//            let t = thread::spawn(move || {
-//
-//            });
-//            threads.push(t);
-//        }
-//    }
-//}
-//
-//impl Write for Sender {
-//    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-//        let middle = buf.len() / 2;
-//        self.t1.send(buf[..middle]);
-//        self.t2.send(buf[..middle]);
-//    }
-//}
-
 fn main() {
     listen()
         .unwrap();
@@ -90,8 +62,7 @@ fn listen() -> io::Result<()> {
     });
 
     let mut file = BufReader::new(File::open("big")?);
-    let mut buf: [u8; 1_000_000] = [0; 1_000_000];
-    println!("Entering loop");
+    let mut buf: [u8; 2_000] = [0; 2_000];
     loop {
         let res = file.read(&mut buf)?;
         // Stream broke, break.
